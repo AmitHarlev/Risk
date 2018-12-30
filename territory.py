@@ -15,13 +15,15 @@ class Territories(Enum):
 class Territory:
     ''' A territory on the map '''
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, cont = None, color = None):
         self.name = name
         self._troops = 0
         self._neighbors = []
+        self.__continent = cont
+        self._color = color
     
     def getColor(self):
-        return self._color
+        return self.color
 
     def getTroops(self):
         return self._troops
@@ -38,4 +40,12 @@ class Territory:
 
     def setNeighbors(self, neighbors: [Territories]):
         self._neighbors = neighbors
+        
+class Continent:
+    def __init__(self, name, territories = [], points):
+        self.name = name
+        self.territories = territories
+        self.points = points
+    def add_territory(self, territory):
+        self.territory.append(territory)
     
