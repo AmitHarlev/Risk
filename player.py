@@ -16,6 +16,10 @@ class Player:
     def troops(self):
         return self._troops
 
+    def removeTroops(self, num):
+        assert num <= self._troops
+        self._troops -= num
+
     @property
     def territories(self):
         return self._territories

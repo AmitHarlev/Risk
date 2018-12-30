@@ -24,4 +24,15 @@ class Game:
             self.__players[val].territories = self.__players[val].territories.append(territory)
 
     def nextTurn(self):
-        self._turn = self._turnOrder[self._turnOrder.index(self._turn)+1]
+        self._turn = self._turnOrder[(self._turnOrder.index(self._turn)+1) % self.numPlayers]
+
+    def giveTroops(self):
+    	for player in self.__players:
+    		player.troops =  50 - (self.__numPlayers * 5)
+
+    def initiateTroops(self):
+    	for player in self.__players:
+    		for territory in player.territories:
+    			territory.placeTroops(1, player.color)
+    			player.removeTroops(1)
+
