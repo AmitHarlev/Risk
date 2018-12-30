@@ -27,6 +27,8 @@
             });
         });
 
+        names = []
+
     </script>
 
     <script>
@@ -34,13 +36,40 @@
         console.log("socket message sent")
         socket.emit("start", "game has started")
       }
+
+      playerJoined = function(){
+        var name = document.getElementById("name");
+        var a = name.value;
+        names.push(a)
+        socket.emit("player join attempted", names)
+      }
     </script>
+
+    <script>
+
+    socket.on("player entered", function playerEntered(data)
+      {
+        console.log("Received Player Enter")
+        // var name = document.getElementById("name");
+        // var theName = name.value;
+        names = data
+        document.getElementById("nameList").innerHTML = "";
+        for (var I = 0; I < names.length; I++)
+        {
+            nameList = "<li>" + names[I] + "</li>";
+            document.getElementById("nameList").innerHTML += nameList; 
+        }
+      })
+    </script>
+
   </head>
-  <form onsubmit="buttonClicked()">
-    <input>
-    <input type="submit">
-  </form>
+    <input id="name">
+    <button onclick="playerJoined()">Submit</button>
   <body>
     <button onclick="buttonClicked()">Start Game</button>
+
+    <ul>
+      <li id="nameList"></li>
+    </ul>
   </body>
 </html>

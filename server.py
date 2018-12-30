@@ -27,6 +27,10 @@ def handle_start(data):
     print(data)
     emit("begin", broadcast=True)
 
+@socketio.on('player join attempted')
+def handle_connect(data):
+    emit("player entered",data, broadcast=True)
+
 # @app.route('/newPlayer')
 # def newPlayer():
 #     global test
