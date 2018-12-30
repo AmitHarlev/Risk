@@ -19,16 +19,13 @@ class Territory:
         self.name = name
         self._troops = 0
         self._neighbors = []
+        self.color = None
     
     def getColor(self):
         return self.color
 
     def getTroops(self):
         return self._troops
-    
-    def placeTroops(self, troops: int, color: str):
-        self._color = color
-        self._troops = troops
 
     def addTroops(self, numTroops: int):
         self._troops += numTroops

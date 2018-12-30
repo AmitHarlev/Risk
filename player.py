@@ -16,9 +16,11 @@ class Player:
     def troops(self):
         return self._troops
 
-    def removeTroops(self, num):
+    def placeTroops(self, troops: int, territory):
         assert num <= self._troops
-        self._troops -= num
+        territory.color = self.__color
+        territory.addTroops(troops)
+        self._troops -= troops
 
     @property
     def territories(self):
