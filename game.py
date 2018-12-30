@@ -1,5 +1,6 @@
 from map import Map
 from random import shuffle
+from color import Color
 
 class Game:
 
@@ -9,8 +10,11 @@ class Game:
         self._map = Map()
         self._turn = None
         self._turnOrder = []
-        self.handOutTerritories()
 
+    def assignColors(self):
+        availableColors = [Color.RED, Color.BLACK, Color.BLUE, Color.YELLOW, Color.GREEN, Color.ORANGE]
+        for index, player in enumerate(self.__players):
+            player.color = availableColors[index]
 
     def handOutTerritories(self):
         territories = self._map.nodes.keys()

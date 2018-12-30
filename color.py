@@ -6,3 +6,4 @@ class Color(Enum):
     GREEN = "Green"
     YELLOW = "Yellow"
     BLUE = "Blue"
+    BLACK = "Black"
