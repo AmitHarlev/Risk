@@ -29,7 +29,7 @@ class Map:
     def getMapState(self):
         mapState = {}
         for key, node in self.nodes.items():
-            mapState[key.value]: node.getTerritoryState()
+            mapState[key.value]=node.getTerritoryState()
         return mapState
 
 

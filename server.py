@@ -3,6 +3,7 @@ from flask_socketio import SocketIO, send, emit
 from color import Color
 from player import Player
 import json
+from game import Game
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -29,8 +30,8 @@ def index():
 
 
 # Send Updated Game State to Client
-def gameStateChanged(gameState):
-    emit("gameUpdate", gameState)
+def gameStateChanged(game: Game):
+    emit("gameUpdate", game.getGameState())
 
 
 

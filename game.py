@@ -50,8 +50,9 @@ class Game:
     def getGameState(self):
         gameState = {}
         players = {}
-        # 
-        gameState["players"] = self.__players
+        for key, player in self.__players.items():
+            players[key] = player.getPlayerState()
+        gameState["players"] = players
         gameState["turn"] = self._turn
         gameState["phase"] = self._gamePhase
         gameState["map"] = self._map.getMapState()

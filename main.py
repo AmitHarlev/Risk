@@ -20,9 +20,7 @@ game = Game(players)
 
 data = game.getGameState()
 
-# json_data = json.dumps(data)
+json_data = json.dumps(data)
 
-print(data)
-
-
+print(json_data)
 

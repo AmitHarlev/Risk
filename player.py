@@ -36,3 +36,9 @@ class Player:
 
     def removeTerritory(self, territory: Territory):
         self._territories.remove(territory)
+
+    def getPlayerState(self):
+        playerState = {}
+        playerState["troops"] = self._troops
+        playerState["territories"] = self._territories
+        return playerState
