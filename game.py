@@ -2,6 +2,7 @@ from map import Map
 from random import shuffle
 from color import Color
 from player import Player
+from territory import Territories
 
 class State:
     PREGAME = 1
@@ -15,8 +16,8 @@ class Game:
         self.__numPlayers = len(playersArray)
         self.__players = playersArray
         self._map = Map()
-        self._turn = None
         self._turnOrder = self.assignTurnOrder()
+        self._turn = None
         self._gamePhase = State.PREGAME
 
     # def assignColors(self):
@@ -43,11 +44,23 @@ class Game:
     		player.troops =  50 - (self.__numPlayers * 5)
 
     def initiateTroops(self):
-    	for player in self.__players.values():
-    		for territoryEnum in player.territories:
-    			player.placeTroops(1, self._map.nodes[territoryEnum])
-    			player.removeTroops(1)
+        for player in self.__players.values():
+    	    for territoryEnum in player.territories:
+    		    player.placeTroops(1, self._map.nodes[territoryEnum])
+    		    player.removeTroops(1)
+        self._gamePhase = State.INITIALPLACEMENT
+        self._turn = self._turnOrder[0]
     
+    def initialPhasePlaceUnit(self, playerColorEnum, territoryName):
+        if(self._turn == playerColorEnum and self._gamePhase == State.INITIALPLACEMENT):
+            player  = self.__players[playerColorEnum]
+            territory = self._map.nodes[Territories(territoryName).territoryName]
+            player.placeTroops(1, territory)
+            player.removeTroops(1)
+        if(all([person.troops == 0 for person in self.__players.values()])):
+            self._gamePhase = State.PLAY
+        self.nextTurn()
+
     def getGameState(self):
         gameState = {}
         players = {}
@@ -58,6 +71,5 @@ class Game:
         gameState["phase"] = self._gamePhase
         gameState["map"] = self._map.getMapState()
         return gameState
-
 
 

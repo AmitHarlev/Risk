@@ -17,7 +17,7 @@ class Player:
         return self._troops
 
 
-    # This is for placing troops in an empty territory (start or just defeated)
+    # This is for placing troops in a territory (start or just defeated)
     # However it does not remove troops from the player or other territory
     # That must be done seperately
     def placeTroops(self, numTroops: int, territory):
