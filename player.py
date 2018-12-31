@@ -17,12 +17,16 @@ class Player:
         return self._troops
 
 
-# THIS FUNCTION NEEDS TO BE CHANGED -- We need to consider all the different times troops are moved to a new territory
-    def placeTroops(self, troops: int, territory):
-        assert num <= self._troops
+    # This is for placing troops in an empty territory (start or just defeated)
+    # However it does not remove troops from the player or other territory
+    # That must be done seperately
+    def placeTroops(self, numTroops: int, territory):
+        assert numTroops <= self._troops
         territory.color = self.__color
-        territory.addTroops(troops)
-        self._troops -= troops
+        territory.addTroops(numTroops)
+
+    def removeTroops(self, numTroops):
+        self._troops -= numTroops
 
     @property
     def territories(self):

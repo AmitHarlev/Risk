@@ -43,10 +43,9 @@ class Game:
     		player.troops =  50 - (self.__numPlayers * 5)
 
     def initiateTroops(self):
-    	for player in self.__players:
-    		for territory in player.territories:
-    			territory.placeTroops(1, player.color)
-                #Player does not have a remove troops method
+    	for player in self.__players.values():
+    		for territoryEnum in player.territories:
+    			player.placeTroops(1, self._map.nodes[territoryEnum])
     			player.removeTroops(1)
     
     def getGameState(self):

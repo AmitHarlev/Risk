@@ -21,6 +21,7 @@ game = Game(players)
 game.assignTurnOrder()
 game.handOutTerritories()
 game.giveTroops()
+game.initiateTroops()
 
 data = game.getGameState()
 
