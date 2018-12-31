@@ -28,23 +28,25 @@ class Game:
         return [Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE]
 
     def handOutTerritories(self):
-        territories = self._map.nodes.keys()
+        territories = list(self._map.nodes.keys())
         shuffle(territories)
         for index, territory in enumerate(territories):
             val = index % self.__numPlayers
-            self.__players[val].territories = self.__players[val].territories.append(territory)
+            valColor = list(self.__players.keys())[val]
+            self.__players[valColor].territories.append(territory)
 
     def nextTurn(self):
-        self._turn = self._turnOrder[(self._turnOrder.index(self._turn)+1) % self.numPlayers]
+        self._turn = self._turnOrder[(self._turnOrder.index(self._turn)+1) % self.__numPlayers]
 
     def giveTroops(self):
-    	for player in self.__players:
+    	for player in self.__players.values():
     		player.troops =  50 - (self.__numPlayers * 5)
 
     def initiateTroops(self):
     	for player in self.__players:
     		for territory in player.territories:
     			territory.placeTroops(1, player.color)
+                #Player does not have a remove troops method
     			player.removeTroops(1)
     
     def getGameState(self):

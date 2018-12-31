@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Territories(Enum):
+class Territories(str, Enum):
     AL = "Alaska"
     NT = "Northern Territory"
     GL = "Greenland"

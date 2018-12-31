@@ -16,6 +16,8 @@ class Player:
     def troops(self):
         return self._troops
 
+
+# THIS FUNCTION NEEDS TO BE CHANGED -- We need to consider all the different times troops are moved to a new territory
     def placeTroops(self, troops: int, territory):
         assert num <= self._troops
         territory.color = self.__color

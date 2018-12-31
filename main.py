@@ -18,6 +18,10 @@ players = {
 
 game = Game(players)
 
+game.assignTurnOrder()
+game.handOutTerritories()
+game.giveTroops()
+
 data = game.getGameState()
 
 json_data = json.dumps(data)
