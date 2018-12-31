@@ -2,7 +2,7 @@ from flask import Flask
 from flask_socketio import SocketIO, send, emit
 from color import Color
 from player import Player
-
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -12,11 +12,29 @@ if __name__ == '__main__':
     socketio.run(app)
 
 # unusedPlayers = set()
-# players = set()
+players = set()
 
 @app.route('/')
 def index():
     return 'Index Page'
+
+# Add a player to game state
+# Share player game state with clients
+# 
+
+# data = {}
+# data['key'] = 'value'
+# json_data = json.dumps(data)
+
+
+
+# Send Updated Game State to Client
+def gameStateChanged(gameState):
+    emit("gameUpdate", gameState)
+
+
+
+
 
 @socketio.on('my event')
 def handle_my_custom_event(json):

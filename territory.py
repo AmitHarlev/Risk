@@ -35,12 +35,22 @@ class Territory:
 
     def setNeighbors(self, neighbors: [Territories]):
         self._neighbors = neighbors
-        
+
+    def getTerritoryState(self):
+        territoryState = {}
+        territoryState["color"] = self.getColor()
+        territoryState["troops"] = self.getTroops()
+        territoryState["name"] = self.name
+        return territoryState
+
+
+
 class Continent:
     def __init__(self, name, points, territories = []):
         self.name = name
         self.territories = territories
         self.points = points
+
     def add_territory(self, territory):
-        self.territory.append(territory)
+        self.territories.append(territory)
     

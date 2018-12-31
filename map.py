@@ -26,6 +26,13 @@ class Map:
         self.nodes[Territories.WUS].setNeighbors([Territories.ALB, Territories.ONT, Territories.EUS, Territories.CA])
         self.nodes[Territories.CA].setNeighbors([Territories.WUS, Territories.EUS])
 
+    def getMapState(self):
+        mapState = {}
+        for key, node in self.nodes.items():
+            mapState[key.value]: node.getTerritoryState()
+        return mapState
+
+
         # # North America
         # alaska = Territory("Alaska")
         # northernTerritory = Territory("Northern Territory")

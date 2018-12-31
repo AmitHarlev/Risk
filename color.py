@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Color(Enum):
+class Color(str, Enum):
     RED = "Red"
     ORANGE = "Orange"
     GREEN = "Green"

@@ -62,11 +62,29 @@
       })
     </script>
 
+    <script>
+    sendEvent = function(){
+      eventName = document.getElementById("eventName").value
+      eventData = document.getElementById("eventData").value
+      console.log(eventData)
+      socket.emit(eventName, eventData)
+    }
+    </script>
+
   </head>
+  <body>
+
     <input id="name">
     <button onclick="playerJoined()">Submit</button>
-  <body>
     <button onclick="buttonClicked()">Start Game</button>
+
+
+    <div>
+      <input id="eventName">
+      <input id="eventData">
+      <button onclick="sendEvent()">Send</button>
+
+    </div>
 
     <ul>
       <li id="nameList"></li>
