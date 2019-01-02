@@ -25,6 +25,10 @@ class Game:
     #     for index, player in enumerate(self.__players):
     #         player.color = availableColors[index]
 
+    @property
+    def players(self):
+        return self.__players
+
     def assignTurnOrder(self):
         return [Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE]
 
@@ -38,8 +42,11 @@ class Game:
 
     def nextTurn(self):
         self._turn = self._turnOrder[(self._turnOrder.index(self._turn)+1) % self.__numPlayers]
+        player  = self.__players[self._turn]
+        if (not player.troops and self._gamePhase == State.INITIALPLACEMENT):
+            self.nextTurn()
 
-    def giveTroops(self):
+    def initialTroops(self):
     	for player in self.__players.values():
     		player.troops =  50 - (self.__numPlayers * 5)
 
@@ -52,14 +59,14 @@ class Game:
         self._turn = self._turnOrder[0]
     
     def initialPhasePlaceUnit(self, playerColorEnum, territoryName):
-        if(self._turn == playerColorEnum and self._gamePhase == State.INITIALPLACEMENT):
+        if (self._turn == playerColorEnum and self._gamePhase == State.INITIALPLACEMENT):
             player  = self.__players[playerColorEnum]
-            territory = self._map.nodes[Territories(territoryName).territoryName]
+            territory = self._map.nodes[territoryName]
             player.placeTroops(1, territory)
             player.removeTroops(1)
-        if(all([person.troops == 0 for person in self.__players.values()])):
-            self._gamePhase = State.PLAY
-        self.nextTurn()
+            if (all([person.troops == 0 for person in self.__players.values()])):
+                self._gamePhase = State.PLAY
+            self.nextTurn()
 
     def getGameState(self):
         gameState = {}

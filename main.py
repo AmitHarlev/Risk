@@ -20,8 +20,10 @@ game = Game(players)
 
 game.assignTurnOrder()
 game.handOutTerritories()
-game.giveTroops()
+game.initialTroops()
 game.initiateTroops()
+for i in range(270):
+    game.initialPhasePlaceUnit(game._turn, game.players[game._turn].territories[0])
 
 data = game.getGameState()
 
