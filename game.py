@@ -68,6 +68,12 @@ class Game:
                 self._gamePhase = State.PLAY
             self.nextTurn()
 
+    def giveTroops(self, playerColorEnum):
+        if (self._turn == playerColorEnum and self._gamePhase == State.PLAY):
+            player = self.__players[playerColorEnum]
+            player.troops = (len(player.territories) // 3)
+            #have to still add continent bonus ***
+
     def getGameState(self):
         gameState = {}
         players = {}
