@@ -3,6 +3,7 @@ from random import shuffle
 from color import Color
 from player import Player
 from territory import Territories
+from random import randrange
 
 class State:
     PREGAME = 1
@@ -73,6 +74,34 @@ class Game:
             player = self.__players[playerColorEnum]
             player.troops = (len(player.territories) // 3)
             #have to still add continent bonus ***
+
+
+    def attack(self, sourceName: str, targetName: str, numTroopsAttacking: int, numTroopsDefending: int, playerColorEnum: str):
+        player  = self.__players[playerColorEnum]
+        source = self._map.nodes[sourceName]
+        target = self._map.nodes[targetName]
+        assert target.color is not player.color
+        assert source.color is player.color
+        assert numTroopsAttacking > source.troops
+        assert numTroopsDefending > target.troops
+        assert numTroopsAttacking in (1,2,3)
+        assert numTroopsDefending in (1,2)
+        attackDice = [randrange(1, 6) for __ in range(numTroopsAttacking)]
+        defenseDice = [randrange(1, 6) for __ in range(numTroopsDefending)]
+        sourceLost, targetLost = self.fight(attackDice, defenseDice)
+        source.removeTroops(sourceLost)
+        target.removeTroops(targetLost)
+
+    def fight(self, attackDice, defenseDice):
+        defenseLost, attackLost = 0, 0
+        for _ in range(len(defenseDice)):
+            if attackDice.pop(max(attackDice)) > defenseDice.pop(max(defenseDice)):
+                defenseLost += 1
+            else:
+                attackLost += 1
+        return attackLost, defenseLost
+
+    
 
     def getGameState(self):
         gameState = {}

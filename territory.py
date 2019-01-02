@@ -19,12 +19,14 @@ class Territory:
         self.name = name
         self._troops = 0
         self._neighbors = []
-        self.color = None
+        self._color = None
     
-    def getColor(self):
-        return self.color
+    @property
+    def color(self):
+        return self._color
 
-    def getTroops(self):
+    @property
+    def troops(self):
         return self._troops
 
     def addTroops(self, numTroops: int):
@@ -38,8 +40,8 @@ class Territory:
 
     def getTerritoryState(self):
         territoryState = {}
-        territoryState["color"] = self.getColor()
-        territoryState["troops"] = self.getTroops()
+        territoryState["color"] = self._color
+        territoryState["troops"] = self._troops
         territoryState["name"] = self.name
         return territoryState
 
