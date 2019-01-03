@@ -1,4 +1,4 @@
-from map import Map
+from riskMap import Map, Continent, Continents
 from random import shuffle
 from color import Color
 from player import Player
@@ -72,8 +72,13 @@ class Game:
     def giveTroops(self, playerColorEnum):
         if (self._turn == playerColorEnum and self._gamePhase == State.PLAY):
             player = self.__players[playerColorEnum]
-            player.troops = (len(player.territories) // 3)
-            #have to still add continent bonus ***
+            bonusTroops = (len(player.territories) // 3)
+            
+            # Continent Bonus
+            for continent in self._map.continents:
+                if all([territory in player.territories for territory in continent.getTerritories()]):
+                    bonusTroops += continent.points
+            player.troops = bonusTroops
 
 
     def attack(self, sourceName: str, targetName: str, numTroopsAttacking: int, numTroopsDefending: int, playerColorEnum: str):

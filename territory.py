@@ -47,14 +47,4 @@ class Territory:
 
     def getNeighbors(self):
         return self._neighbors
-
-
-class Continent:
-    def __init__(self, name, points, territories = []):
-        self.name = name
-        self.territories = territories
-        self.points = points
-
-    def add_territory(self, territory):
-        self.territories.append(territory)
     

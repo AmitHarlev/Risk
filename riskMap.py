@@ -26,6 +26,12 @@ class Map:
         self.nodes[Territories.WUS].setNeighbors([Territories.ALB, Territories.ONT, Territories.EUS, Territories.CA])
         self.nodes[Territories.CA].setNeighbors([Territories.WUS, Territories.EUS])
 
+        self.continents = {
+            Continents.NA : Continent("North America", 5)
+        }
+
+        self.continents[Continents.NA].setTerritories([Territories.AL,Territories.NT,Territories.GL,Territories.ALB,Territories.ONT,Territories.EC,Territories.WUS,Territories.EUS, Territories.CA])
+
     def getMapState(self):
         mapState = {}
         for key, node in self.nodes.items():
@@ -87,5 +93,17 @@ class Map:
         # yakutsk = Territory("Yakutsk")
         # kamchatka = Territory("Kamchatka")
 
+class Continent:
+    def __init__(self, name, points):
+        self.name = name
+        self._territories = []
+        self.points = points
 
+    def setTerritories(self, territories):
+        self._territories = territories
 
+    def getTerritories(self):
+        return self._territories
+
+class Continents(Enum):
+    NA = "North America"
