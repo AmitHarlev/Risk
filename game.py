@@ -80,6 +80,7 @@ class Game:
         player  = self.__players[playerColorEnum]
         source = self._map.nodes[sourceName]
         target = self._map.nodes[targetName]
+        assert target in source.getNeighbors()
         assert target.color is not player.color
         assert source.color is player.color
         assert numTroopsAttacking > source.troops

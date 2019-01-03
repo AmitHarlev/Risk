@@ -45,6 +45,8 @@ class Territory:
         territoryState["name"] = self.name
         return territoryState
 
+    def getNeighbors(self):
+        return self._neighbors
 
 
 class Continent:
