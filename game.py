@@ -118,7 +118,7 @@ class Game:
     def fight(self, attackDice, defenseDice):
         defenseLost, attackLost = 0, 0
         for _ in range(len(defenseDice)):
-            if attackDice.pop(max(attackDice)) > defenseDice.pop(max(defenseDice)):
+            if attackDice.pop(attackDice.index(max(attackDice))) > defenseDice.pop(defenseDice.index(max(defenseDice))):
                 defenseLost += 1
             else:
                 attackLost += 1
