@@ -137,6 +137,7 @@ class Game:
     	assert numTroopsMoving >= numDice and numTroopsMoving < player.troops, "You cannot move this many troops"
     	source.removeTroops(numTroopsMoving)
     	target.addTroops(numTroopsMoving)
+    	target.color = player.color
 
 
 

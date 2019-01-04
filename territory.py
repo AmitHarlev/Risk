@@ -25,6 +25,10 @@ class Territory:
     def color(self):
         return self._color
 
+    @color.setter
+    def color(self, color: Color):
+        self._color = color
+
     @property
     def troops(self):
         return self._troops
