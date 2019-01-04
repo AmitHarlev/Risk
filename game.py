@@ -4,14 +4,23 @@ from color import Color
 from player import Player
 from territory import Territories
 from random import randrange
+from enum import Enum
 
-class State:
+class State(Enum):
     PREGAME = 1
     INITIALPLACEMENT = 2
     PLAY = 3
     END = 4
 
+class Phase(Enum):
+    NEWTROOPS = 1
+    ATTACKING = 2
+    POSTATTACK = 3
+    FINISH = 4
+
 class Game:
+
+    CARDBONUS = [4,6,8,10,12,15,20,25,30,35,40,45,50,55,60]
 
     def __init__(self, playersArray: {Color:Player}):
         self.__numPlayers = len(playersArray)
@@ -19,7 +28,9 @@ class Game:
         self._map = Map()
         self._turnOrder = self.assignTurnOrder()
         self._turn = None
+        self._turnPhase = None
         self._gamePhase = State.PREGAME
+        self._cardBonus = 0
 
     # def assignColors(self):
     #     availableColors = [Color.RED, Color.BLACK, Color.BLUE, Color.YELLOW, Color.GREEN, Color.ORANGE]
@@ -78,7 +89,15 @@ class Game:
             for continent in self._map.continents:
                 if all([territory in player.territories for territory in continent.getTerritories()]):
                     bonusTroops += continent.points
+
+            # Card Bonus - Need to add mechanism for turning in cards
+            giveCardBonus = False
+            if(giveCardBonus):
+                bonusTroops += self.CARDBONUS[self._cardBonus]
+                self._cardBonus += 1
+
             player.troops = bonusTroops
+
 
 
     def attack(self, sourceName: str, targetName: str, numTroopsAttacking: int, numTroopsDefending: int, playerColorEnum: str):
@@ -106,8 +125,6 @@ class Game:
             else:
                 attackLost += 1
         return attackLost, defenseLost
-
-    
 
     def getGameState(self):
         gameState = {}
