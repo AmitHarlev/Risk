@@ -100,8 +100,8 @@ class Game:
 
 
 
-    def attack(self, sourceName: str, targetName: str, numTroopsAttacking: int, numTroopsDefending: int, playerColorEnum: str):
-        player  = self.__players[playerColorEnum]
+    def attack(self, sourceName: str, targetName: str, numTroopsAttacking: int, numTroopsDefending: int):
+        player  = self.__players[self._turn]
         source = self._map.nodes[sourceName]
         target = self._map.nodes[targetName]
         assert target in source.getNeighbors(), targetName, "is not a neighbor of", sourceName
