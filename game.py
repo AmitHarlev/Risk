@@ -104,13 +104,11 @@ class Game:
         player  = self.__players[playerColorEnum]
         source = self._map.nodes[sourceName]
         target = self._map.nodes[targetName]
-        assert target in source.getNeighbors()
-        assert target.color is not player.color
-        assert source.color is player.color
-        assert numTroopsAttacking > source.troops
-        assert numTroopsDefending > target.troops
-        assert numTroopsAttacking in (1,2,3)
-        assert numTroopsDefending in (1,2)
+        assert target in source.getNeighbors(), targetName, "is not a neighbor of", sourceName
+        assert target.color is not player.color, "You cannot attack yourself"
+        assert source.color is player.color, sourcename, "is not your territory"
+        assert numTroopsAttacking < source.troops and numTroopsAttacking in (1,2,3), "Number of troops attacking out of range"
+        assert numTroopsDefending <= target.troops and numTroopsDefending in (1,2), "Number of troops defending out of range"
         attackDice = [randrange(1, 6) for __ in range(numTroopsAttacking)]
         defenseDice = [randrange(1, 6) for __ in range(numTroopsDefending)]
         sourceLost, targetLost = self.fight(attackDice, defenseDice)
