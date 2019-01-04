@@ -27,7 +27,7 @@ class Game:
         self.__players = playersArray
         self._map = Map()
         self._turnOrder = self.assignTurnOrder()
-        self._turn = None
+        self._turn = self._turnOrder[0]
         self._turnPhase = None
         self._gamePhase = State.PREGAME
         self._cardBonus = 0
@@ -71,39 +71,51 @@ class Game:
         self._turn = self._turnOrder[0]
     
     def initialPhasePlaceUnit(self, playerColorEnum, territoryName):
-        if (self._turn == playerColorEnum and self._gamePhase == State.INITIALPLACEMENT):
-            player  = self.__players[playerColorEnum]
-            territory = self._map.nodes[territoryName]
-            player.placeTroops(1, territory)
-            player.removeTroops(1)
-            if (all([person.troops == 0 for person in self.__players.values()])):
-                self._gamePhase = State.PLAY
-            self.nextTurn()
+    	assert self._gamePhase == State.INITIALPLACEMENT, "It is not the INITIALPLACEMENT game phase"
+    	player = self.__players[self.turn]
+        player  = self.__players[playerColorEnum]
+        territory = self._map.nodes[territoryName]
+        player.placeTroops(1, territory)
+        player.removeTroops(1)
+        if (all([person.troops == 0 for person in self.__players.values()])):
+            self._gamePhase = State.PLAY
+            self._turnPhase = Phase.NEWTROOPS
+        self.nextTurn()
 
-    def giveTroops(self, playerColorEnum):
-        if (self._turn == playerColorEnum and self._gamePhase == State.PLAY):
-            player = self.__players[playerColorEnum]
-            bonusTroops = (len(player.territories) // 3)
-            
-            # Continent Bonus
-            for continent in self._map.continents:
-                if all([territory in player.territories for territory in continent.getTerritories()]):
-                    bonusTroops += continent.points
+    def giveTroops(self):
+    	assert self._gamePhase == State.PLAY, "It is not PLAY game phase"
+    	assert self._turnPhase == Phase.NEWTROOPS, "It is not the NEWTROOPS phase"
+    	player = self.__players[self._turn]
+        bonusTroops = (len(player.territories) // 3)
+        
+        # Continent Bonus
+        for continent in self._map.continents:
+            if all([territory in player.territories for territory in continent.getTerritories()]):
+                bonusTroops += continent.points
 
-            # Card Bonus - Need to add mechanism for turning in cards
-            giveCardBonus = False
-            if(giveCardBonus):
-                bonusTroops += self.CARDBONUS[self._cardBonus]
-                self._cardBonus += 1
+        # Card Bonus - Need to add mechanism for turning in cards
+        giveCardBonus = False
+        if(giveCardBonus):
+            bonusTroops += self.CARDBONUS[self._cardBonus]
+            self._cardBonus += 1
 
-            player.troops = bonusTroops
+        player.troops = bonusTroops
+        self._turnPhase == Phase.ATTACKING
 
-
+    def fight(self, attackDice, defenseDice):
+        defenseLost, attackLost = 0, 0
+        for _ in range(len(defenseDice)):
+            if attackDice.pop(attackDice.index(max(attackDice))) > defenseDice.pop(defenseDice.index(max(defenseDice))):
+                defenseLost += 1
+            else:
+                attackLost += 1
+        return attackLost, defenseLost
 
     def attack(self, sourceName: str, targetName: str, numTroopsAttacking: int, numTroopsDefending: int):
         player  = self.__players[self._turn]
         source = self._map.nodes[sourceName]
         target = self._map.nodes[targetName]
+        assert self._turnPhase == Phase.ATTACKING, "It is not the ATTACKING phase"
         assert target in source.getNeighbors(), targetName, "is not a neighbor of", sourceName
         assert target.color is not player.color, "You cannot attack yourself"
         assert source.color is player.color, sourcename, "is not your territory"
@@ -114,15 +126,7 @@ class Game:
         sourceLost, targetLost = self.fight(attackDice, defenseDice)
         source.removeTroops(sourceLost)
         target.removeTroops(targetLost)
-
-    def fight(self, attackDice, defenseDice):
-        defenseLost, attackLost = 0, 0
-        for _ in range(len(defenseDice)):
-            if attackDice.pop(attackDice.index(max(attackDice))) > defenseDice.pop(defenseDice.index(max(defenseDice))):
-                defenseLost += 1
-            else:
-                attackLost += 1
-        return attackLost, defenseLost
+        self._turnPhase == POSTATTACK
 
     def getGameState(self):
         gameState = {}
