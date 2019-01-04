@@ -100,7 +100,7 @@ class Game:
             self._cardBonus += 1
 
         player.troops = bonusTroops
-        self._turnPhase == Phase.ATTACKING
+        self._turnPhase = Phase.ATTACKING
 
     def fight(self, attackDice, defenseDice):
         defenseLost, attackLost = 0, 0
@@ -112,7 +112,7 @@ class Game:
         return attackLost, defenseLost
 
     def attack(self, sourceName: str, targetName: str, numTroopsAttacking: int, numTroopsDefending: int):
-        player  = self.__players[self._turn]
+        player = self.__players[self._turn]
         source = self._map.nodes[sourceName]
         target = self._map.nodes[targetName]
         assert self._turnPhase == Phase.ATTACKING, "It is not the ATTACKING phase"
@@ -126,7 +126,19 @@ class Game:
         sourceLost, targetLost = self.fight(attackDice, defenseDice)
         source.removeTroops(sourceLost)
         target.removeTroops(targetLost)
-        self._turnPhase == POSTATTACK
+        if not target.troops:
+  	  	    self._turnPhase = POSTATTACK
+
+    def postAttack(self, sourceName: str, targetName: str, numTroopsMoving: int, numDice: int):
+    	player = self.__players[self._turn]
+    	source = self._map.nodes[sourceName]
+        target = self._map.nodes[targetName]
+        assert self._turnPhase == Phase.POSTATTACK, "It is not the POSTATTACK phase"
+    	assert numTroopsMoving >= numDice and numTroopsMoving < player.troops, "You cannot move this many troops"
+    	source.removeTroops(numTroopsMoving)
+    	target.addTroops(numTroopsMoving)
+
+
 
     def getGameState(self):
         gameState = {}
