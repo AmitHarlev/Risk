@@ -7,6 +7,7 @@ class Player:
         self.__color = color
         self._troops = 0
         self._territories = []
+        self._cards = []
     
     @property
     def color(self):
@@ -15,6 +16,15 @@ class Player:
     @property
     def troops(self):
         return self._troops
+
+    def addCard(self, card):
+        self._cards.append(card)
+    
+    def getCards(self):
+        return self._cards
+    
+    def removeCard(self, cardTerritory):
+        self._cards = [card for card in self._cards if card.territory != cardTerritory]
 
 
     # This is for placing troops in a territory (start or just defeated)
@@ -47,4 +57,5 @@ class Player:
         playerState = {}
         playerState["troops"] = self._troops
         playerState["territories"] = self._territories
+        playerState["cards"] = self._cards
         return playerState
