@@ -81,7 +81,7 @@ class Game:
             self._turnPhase = Phase.NEWTROOPS
         self.nextTurn()
 
-    def giveTroops(self):
+    def giveTroops(self, giveCardBonus: bool):
     	assert self._gamePhase == State.PLAY, "It is not PLAY game phase"
     	assert self._turnPhase == Phase.NEWTROOPS, "It is not the NEWTROOPS phase"
     	player = self.__players[self._turn]
@@ -92,14 +92,24 @@ class Game:
             if all([territory in player.territories for territory in continent.getTerritories()]):
                 bonusTroops += continent.points
 
-        # Card Bonus - Need to add mechanism for turning in cards
-        giveCardBonus = False
+        # Card Bonus
         if(giveCardBonus):
             bonusTroops += self.CARDBONUS[self._cardBonus]
             self._cardBonus += 1
 
         player.troops = bonusTroops
         self._turnPhase = Phase.ATTACKING
+
+    def turnInCards(turningIn: bool, cardTerritories = None):
+        player = self.__players[self._turn]
+        if(cardTerritories):
+            hasCards = all([card in player.getCards() for card in cardTerritories])
+        if(turningIn and hasCards):
+            for card in cardTerritories:
+                player.removeCard(card)
+            giveTroops(True)
+        else:
+            giveTroops(False)
 
     def fight(self, attackDice, defenseDice):
         defenseLost, attackLost = 0, 0
