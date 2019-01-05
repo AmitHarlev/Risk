@@ -19,7 +19,7 @@ class Phase(Enum):
     FINISH = 4
 
 class Game:
-
+``
     CARDBONUS = [4,6,8,10,12,15,20,25,30,35,40,45,50,55,60]
 
     def __init__(self, playersArray: {Color:Player}):
@@ -68,7 +68,6 @@ class Game:
     		    player.placeTroops(1, self._map.nodes[territoryEnum])
     		    player.removeTroops(1)
         self._gamePhase = State.INITIALPLACEMENT
-        self._turn = self._turnOrder[0]
     
     def initialPhasePlaceUnit(self, playerColorEnum, territoryName):
     	assert self._gamePhase == State.INITIALPLACEMENT, "It is not the INITIALPLACEMENT game phase"

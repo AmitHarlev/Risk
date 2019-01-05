@@ -1,4 +1,5 @@
 from enum import Enum
+from color import Color
 
 class Territories(str, Enum):
     AL = "Alaska"
