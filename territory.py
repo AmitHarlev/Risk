@@ -12,6 +12,43 @@ class Territories(str, Enum):
     EUS = "Eastern United States"
     CA = "Central America"
 
+    VZ = "Venezuela"
+    BR = "Brazil"
+    P = "Peru"
+    AR = "Argentina"
+
+    IS = "Iceland"
+    GBR = "Great Britain"
+    SC = "Scandinavia"
+    NE = "Northern Europe"
+    WE = "Western Europe"
+    SE = "Southern Europe"
+    R = "Russia"
+
+    EG = "Egypt"
+    NA = "North Africa"
+    EAF = "East Africa"
+    CAF = "Central Africa"
+    SA = "South Africa"
+
+    IN = "Indonesia"
+    NG = "New Guinea"
+    WA = "Western Australia"
+    EA = "Eastern Australia"
+
+    ME = "Middle East"
+    AF = "Afghanistan"
+    U = "Ural"
+    SI = "Siberia"
+    I = "India"
+    CH = "China"
+    MG = "Mongolia"
+    IR = "Irkutsk"
+    YA = "Yakutsk"
+    K = "Kamchatka"
+    JA = "Japan"
+    SEA = "Southeast Asia"
+
 
 class Territory:
     ''' A territory on the map '''

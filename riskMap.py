@@ -15,6 +15,43 @@ class Map:
             Territories.WUS : Territory("Western United States"),
             Territories.EUS : Territory("Eastern United States"),
             Territories.CA : Territory("Central America")
+
+            Territories.VZ : Territory("Venezuela")
+            Territories.BR : Territory("Brazil")
+            Territories.P : Territory("Peru")
+            Territories.AR : Territory("Argentina")
+
+            Territories.IS = Territory("Iceland")
+            Territories.GBR = Territory("Great Britain")
+            Territories.SC = Territory("Scandinavia")
+            Territories.NE = Territory("Northern Europe")
+            Territories.WE = Territory("Western Europe")
+            Territories.SE = Territory("Southern Europe")
+            Territories.R = Territory("Russia")
+
+            Territories.EG = Territory("Egypt")
+            Territories.NA = Territory("North Africa")
+            Territories.EAF = Territory("East Africa")
+            Territories.CAF = Territory("Central Africa")
+            Territories.SA = Territory("South Africa")
+
+            Territories.IN = Territory("Indonesia")
+            Territories.NG = Territory("New Guinea")
+            Territories.WA = Territory("Western Australia")
+            Territories.EA = Territory("Eastern Australia")
+
+            Territories.ME = Territory("Middle East")
+            Territories.AF = Territory("Afghanistan")
+            Territories.U = Territory("Ural")
+            Territories.SI = Territory("Siberia")
+            Territories.I = Territory("India")
+            Territories.CH = Territory("China")
+            Territories.MG = Territory("Mongolia")
+            Territories.IR = Territory("Irkutsk")
+            Territories.YA = Territory("Yakutsk")
+            Territories.K = Territory("Kamchatka")
+            Territories.JA = Territory("Japan")
+            Territories.SEA = Territory("Southeast Asia")
         }
 
         self.nodes[Territories.AL].setNeighbors([Territories.NT, Territories.ALB])
@@ -28,10 +65,19 @@ class Map:
 
         self.continents = {
             Continents.NA : Continent("North America", 5)
+            Continents.SA : Continent("South America", 2)
+            Continents.EU : Continent("Europe", 5)
+            Continents.AS : Continent("Asia", 7)
+            Continents.AF : Continent("Africa", 3)
+            Continents.AU : Continent("Australia", 2)
         }
 
         self.continents[Continents.NA].setTerritories([Territories.AL,Territories.NT,Territories.GL,Territories.ALB,Territories.ONT,Territories.EC,Territories.WUS,Territories.EUS, Territories.CA])
-
+        self.continents[Continents.SA].setTerritories([Territories.VZ, Territories.BR, Territories.P, Territories.AR])
+        self.continents[Continents.EU].setTerritories([Territories.IS, Territories.GBR, Territories.SC, Territories.NE, Territories.WE, Territories.SE, Territories.R])
+        self.continents[Continents.AS].setTerritories([Territories.ME, Territories.AF, Territories.U, Territories.SI, Territories.I, Territories.CH, Territories.MG, Territories.IR, Territories.YA, Territories.K, Territories.JA, Territories.SEA])
+        self.continents[Continents.AF].setTerritories([Territories.EG, Territories.NA, Territories.EAF, Territories.CAF, Territories.SA])
+        self.continents[Continents.AU].setTerritories([Territories.IN, Territories.NG, Territories.WA, Territories.EA])
     def getMapState(self):
         mapState = {}
         for key, node in self.nodes.items():
