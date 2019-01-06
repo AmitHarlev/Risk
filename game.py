@@ -126,6 +126,7 @@ class Game:
         source.removeTroops(sourceLost)
         target.removeTroops(targetLost)
         if not target.troops:
+        	player.conquer = True
   	  	    self._turnPhase = POSTATTACK
 
     def postAttack(self, sourceName: str, targetName: str, numTroopsMoving: int, numDice: int):
@@ -157,6 +158,7 @@ class Game:
     	terminal.addTroops(numTroopsMoving)
     	if player.conquer:
     		player.addCard(card)
+    		player.conquer = False
     	self.nextTurn()
 
 

@@ -8,6 +8,7 @@ class Player:
         self._troops = 0
         self._territories = []
         self._cards = []
+        self._conquer = False
     
     @property
     def color(self):
@@ -16,6 +17,14 @@ class Player:
     @property
     def troops(self):
         return self._troops
+
+    @property
+    def conquer(self):
+        return self._conquer
+
+    @conquer.setter
+    def conquer(self, conquer: bool):
+        self._conquer = conquer
 
     def addCard(self, card):
         self._cards.append(card)
