@@ -14,43 +14,43 @@ class Map:
             Territories.EC : Territory("Eastern Canada"),
             Territories.WUS : Territory("Western United States"),
             Territories.EUS : Territory("Eastern United States"),
-            Territories.CA : Territory("Central America")
+            Territories.CA : Territory("Central America"),
 
-            Territories.VZ : Territory("Venezuela")
-            Territories.BR : Territory("Brazil")
-            Territories.P : Territory("Peru")
-            Territories.AR : Territory("Argentina")
+            Territories.VZ : Territory("Venezuela"),
+            Territories.BR : Territory("Brazil"),
+            Territories.P : Territory("Peru"),
+            Territories.AR : Territory("Argentina"),
 
-            Territories.IS = Territory("Iceland")
-            Territories.GBR = Territory("Great Britain")
-            Territories.SC = Territory("Scandinavia")
-            Territories.NE = Territory("Northern Europe")
-            Territories.WE = Territory("Western Europe")
-            Territories.SE = Territory("Southern Europe")
-            Territories.R = Territory("Russia")
+            Territories.IS = Territory("Iceland"),
+            Territories.GBR = Territory("Great Britain"),
+            Territories.SC = Territory("Scandinavia"),
+            Territories.NE = Territory("Northern Europe"),
+            Territories.WE = Territory("Western Europe"),
+            Territories.SE = Territory("Southern Europe"),
+            Territories.R = Territory("Russia"),
 
-            Territories.EG = Territory("Egypt")
-            Territories.NA = Territory("North Africa")
-            Territories.EAF = Territory("East Africa")
-            Territories.CAF = Territory("Central Africa")
-            Territories.SA = Territory("South Africa")
+            Territories.EG = Territory("Egypt"),
+            Territories.NA = Territory("North Africa"),
+            Territories.EAF = Territory("East Africa"),
+            Territories.CAF = Territory("Central Africa"),
+            Territories.SA = Territory("South Africa"),
 
-            Territories.IN = Territory("Indonesia")
-            Territories.NG = Territory("New Guinea")
-            Territories.WA = Territory("Western Australia")
-            Territories.EA = Territory("Eastern Australia")
+            Territories.IN = Territory("Indonesia"),
+            Territories.NG = Territory("New Guinea"),
+            Territories.WA = Territory("Western Australia"),
+            Territories.EA = Territory("Eastern Australia"),
 
-            Territories.ME = Territory("Middle East")
-            Territories.AF = Territory("Afghanistan")
-            Territories.U = Territory("Ural")
-            Territories.SI = Territory("Siberia")
-            Territories.I = Territory("India")
-            Territories.CH = Territory("China")
-            Territories.MG = Territory("Mongolia")
-            Territories.IR = Territory("Irkutsk")
-            Territories.YA = Territory("Yakutsk")
-            Territories.K = Territory("Kamchatka")
-            Territories.JA = Territory("Japan")
+            Territories.ME = Territory("Middle East"),
+            Territories.AF = Territory("Afghanistan"),
+            Territories.U = Territory("Ural"),
+            Territories.SI = Territory("Siberia"),
+            Territories.I = Territory("India"),
+            Territories.CH = Territory("China"),
+            Territories.MG = Territory("Mongolia"),
+            Territories.IR = Territory("Irkutsk"),
+            Territories.YA = Territory("Yakutsk"),
+            Territories.K = Territory("Kamchatka"),
+            Territories.JA = Territory("Japan"),
             Territories.SEA = Territory("Southeast Asia")
         }
 
