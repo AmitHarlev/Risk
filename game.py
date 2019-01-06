@@ -100,7 +100,6 @@ class Game:
             self._cardBonus += 1
 
         player.troops = bonusTroops
-        self._turnPhase = Phase.ATTACKING
 
     def fight(self, attackDice, defenseDice):
         defenseLost, attackLost = 0, 0
@@ -139,6 +138,26 @@ class Game:
     	target.addTroops(numTroopsMoving)
     	target.color = player.color
 
+# Call before each attack
+    def continueTurn(self, willAttack: bool):
+    	if willAttack:
+    		self._turnPhase = ATTACKING
+    	else:
+    		self._turnPhase = FINISH
+
+    def finishTurn(self, card, initialName = None, terminalName = None, numTroopsMoving = 0):
+    	player = self.__players[self._turn]
+    	if initialName and terminalName and numTroopsMoving:
+    		initial = self._map.nodes[initialName]
+    		terminal = self._map.nodes[terminalName]
+    	assert self._turnPhase == FINISH, "It is not the FINISH phase"
+    	assert initial.color is player.color and terminal.color is player.color, "You do not own at least one of these territories"
+    	assert numTroopsMoving < initial.troops
+    	initial.removeTroops(numTroopsMoving)
+    	terminal.addTroops(numTroopsMoving)
+    	if player.conquer:
+    		player.addCard(card)
+    	self.nextTurn()
 
 
     def getGameState(self):
