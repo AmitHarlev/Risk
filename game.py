@@ -19,7 +19,7 @@ class Phase(Enum):
     FINISH = 4
 
 class Game:
-
+``
     CARDBONUS = [4,6,8,10,12,15,20,25,30,35,40,45,50,55,60]
 
     def __init__(self, playersArray: {Color:Player}):
@@ -68,7 +68,6 @@ class Game:
     		    player.placeTroops(1, self._map.nodes[territoryEnum])
     		    player.removeTroops(1)
         self._gamePhase = State.INITIALPLACEMENT
-        self._turn = self._turnOrder[0]
     
     def initialPhasePlaceUnit(self, playerColorEnum, territoryName):
     	assert self._gamePhase == State.INITIALPLACEMENT, "It is not the INITIALPLACEMENT game phase"
@@ -82,7 +81,7 @@ class Game:
             self._turnPhase = Phase.NEWTROOPS
         self.nextTurn()
 
-    def giveTroops(self):
+    def giveTroops(self, giveCardBonus: bool):
     	assert self._gamePhase == State.PLAY, "It is not PLAY game phase"
     	assert self._turnPhase == Phase.NEWTROOPS, "It is not the NEWTROOPS phase"
     	player = self.__players[self._turn]
@@ -93,13 +92,23 @@ class Game:
             if all([territory in player.territories for territory in continent.getTerritories()]):
                 bonusTroops += continent.points
 
-        # Card Bonus - Need to add mechanism for turning in cards
-        giveCardBonus = False
+        # Card Bonus
         if(giveCardBonus):
             bonusTroops += self.CARDBONUS[self._cardBonus]
             self._cardBonus += 1
 
         player.troops = bonusTroops
+
+    def turnInCards(turningIn: bool, cardTerritories = None):
+        player = self.__players[self._turn]
+        if(cardTerritories):
+            hasCards = all([card in player.getCards() for card in cardTerritories])
+        if(turningIn and hasCards):
+            for card in cardTerritories:
+                player.removeCard(card)
+            giveTroops(True)
+        else:
+            giveTroops(False)
 
     def fight(self, attackDice, defenseDice):
         defenseLost, attackLost = 0, 0
