@@ -65,11 +65,11 @@ class Map:
         self.nodes[Territories.CA].setNeighbors([Territories.WUS, Territories.EUS])
 
         self.continents = {
-            Continents.NA : Continent("North America", 5)
-            Continents.SA : Continent("South America", 2)
-            Continents.EU : Continent("Europe", 5)
-            Continents.AS : Continent("Asia", 7)
-            Continents.AF : Continent("Africa", 3)
+            Continents.NA : Continent("North America", 5),
+            Continents.SA : Continent("South America", 2),
+            Continents.EU : Continent("Europe", 5),
+            Continents.AS : Continent("Asia", 7),
+            Continents.AF : Continent("Africa", 3),
             Continents.AU : Continent("Australia", 2)
         }
 

@@ -31,6 +31,7 @@ class Game:
         self._turnPhase = None
         self._gamePhase = State.PREGAME
         self._cardBonus = 0
+        self._cards = self.cardDictionary()
 
     # def assignColors(self):
     #     availableColors = [Color.RED, Color.BLACK, Color.BLUE, Color.YELLOW, Color.GREEN, Color.ORANGE]
@@ -99,11 +100,27 @@ class Game:
 
         player.troops = bonusTroops
 
+    # Checks that all elements in the list are identical
+    def checkListElementsIdentical(self, lst):
+        return lst[1:] == lst[:-1]
+
+
     def turnInCards(turningIn: bool, cardTerritories = None):
         player = self.__players[self._turn]
-        if(cardTerritories):
+        
+        if (cardTerritories ):
             hasCards = all([card in player.getCards() for card in cardTerritories])
-        if(turningIn and hasCards):
+
+            if (any([self.cards[card].wild for card in cardTerritories])):
+                cardSet = True
+            elif(self.checkListElementsIdentical([self.cards[card].picture for card in cardTerritories])):
+                cardSet = True
+            elif(set([self.cards[card].picture for card in cardTerritories]) == {Pictures.SOLDIER, Pictures.KNIGHT, Pictures.CANNON}):
+                cardSet = True
+            else:
+                cardSet = False
+
+        if(turningIn and hasCards and cardSet):
             for card in cardTerritories:
                 player.removeCard(card)
             giveTroops(True)
@@ -182,4 +199,57 @@ class Game:
         gameState["map"] = self._map.getMapState()
         return gameState
 
+    def cardDictionary(self):
+        return {
+            Territories.AL : Card(Territory("Alaska"), Pictures.SOLDIER),
+            Territories.NT : Card(Territory("Northern Territory"), Pictures.CANNON),
+            Territories.GL : Card(Territory("Greenland"), Pictures.KNIGHT),
+            Territories.ALB : Card(Territory("Alberta"), Pictures.KNIGHT),
+            Territories.ONT : Card(Territory("Ontario"), Pictures.KNIGHT),
+            Territories.EC : Card(Territory("Eastern Canada"), Pictures.KNIGHT),
+            Territories.WUS : Card(Territory("Western United States"), Pictures.CANNON),
+            Territories.EUS : Card(Territory("Eastern United States"), Pictures.CANNON),
+            Territories.CA : Card(Territory("Central America"), Pictures.CANNON),
+
+            Territories.VZ : Card(Territory("Venezuela"), Pictures.SOLDIER),
+            Territories.BR : Card(Territory("Brazil"), Pictures.CANNON),
+            Territories.P : Card(Territory("Peru"), Pictures.SOLDIER),
+            Territories.AR : Card(Territory("Argentina"), Pictures.SOLDIER),
+
+            Territories.IS : Card(Territory("Iceland"), Pictures.SOLDIER),
+            Territories.GBR : Card(Territory("Great Britain"), Pictures.CANNON),
+            Territories.SC : Card(Territory("Scandinavia"), Pictures.KNIGHT),
+            Territories.NE : Card(Territory("Northern Europe"), Pictures.CANNON),
+            Territories.WE : Card(Territory("Western Europe"), Pictures.CANNON),
+            Territories.SE : Card(Territory("Southern Europe"), Pictures.CANNON),
+            Territories.R : Card(Territory("Russia"), Pictures.KNIGHT),
+
+            Territories.EG : Card(Territory("Egypt"), Pictures.SOLDIER),
+            Territories.NA : Card(Territory("North Africa"), Pictures.KNIGHT),
+            Territories.EAF : Card(Territory("East Africa"), Pictures.SOLDIER),
+            Territories.CAF : Card(Territory("Central Africa"), Pictures.SOLDIER),
+            Territories.SA : Card(Territory("South Africa"), Pictures.CANNON),
+            Territories.MA : Card(Territory("Madagascar"), Pictures.KNIGHT),
+
+            Territories.IN : Card(Territory("Indonesia"), Pictures.CANNON),
+            Territories.NG : Card(Territory("New Guinea"), Pictures.SOLDIER),
+            Territories.WA : Card(Territory("Western Australia"), Pictures.CANNON),
+            Territories.EA : Card(Territory("Eastern Australia"), Pictures.CANNON),
+
+            Territories.ME : Card(Territory("Middle East"), Pictures.SOLDIER),
+            Territories.AF : Card(Territory("Afghanistan"), Pictures.KNIGHT),
+            Territories.U : Card(Territory("Ural"), Pictures.KNIGHT),
+            Territories.SI : Card(Territory("Siberia"), Pictures.KNIGHT),
+            Territories.I : Card(Territory("India"), Pictures.KNIGHT),
+            Territories.CH : Card(Territory("China"), Pictures.SOLDIER),
+            Territories.MG : Card(Territory("Mongolia"), Pictures.SOLDIER),
+            Territories.IR : Card(Territory("Irkutsk"), Pictures.KNIGHT),
+            Territories.YA : Card(Territory("Yakutsk"), Pictures.KNIGHT),
+            Territories.K : Card(Territory("Kamchatka"), Pictures.SOLDIER),
+            Territories.JA : Card(Territory("Japan"), Pictures.CANNON),
+            Territories.SEA : Card(Territory("Southeast Asia"), Pictures.SOLDIER),
+
+            Wild_1 : Card(None, None, True)
+            Wild_2 : Card(None, None, True)
+        }
 
