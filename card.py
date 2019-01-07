@@ -8,9 +8,10 @@ class Pictures(Enum):
 
 class Card:
 
-    def __init__(self, territory, picture):
+    def __init__(self, territory, picture, wild = False):
         self.__territory = territory
         self.__picture = picture
+        self.__wild = wild
     
     @property
     def territory(self):
@@ -19,6 +20,10 @@ class Card:
     @property
     def picture(self):
         return self.__picture
+
+    @property
+    def wild(self):
+        return self.__wild
 
 class Deck:
     def __init__(self):
@@ -71,6 +76,6 @@ class Deck:
             Territories.JA : Card(Territory("Japan"), Pictures.CANNON),
             Territories.SEA : Card(Territory("Southeast Asia"), Pictures.SOLDIER),
 
-            Wild_1 : Card()
-            Wild_2 : Card()
+            Wild_1 : Card(None, None, True)
+            Wild_2 : Card(None, None, True)
         }

@@ -162,7 +162,7 @@ class Game:
     		terminal = self._map.nodes[terminalName]
     	assert self._turnPhase == FINISH, "It is not the FINISH phase"
     	assert initial.color is player.color and terminal.color is player.color, "You do not own at least one of these territories"
-    	assert numTroopsMoving < initial.troops
+    	assert numTroopsMoving < initial.troops, "You cannot move this many troops"
     	initial.removeTroops(numTroopsMoving)
     	terminal.addTroops(numTroopsMoving)
     	if player.conquer:
