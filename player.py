@@ -1,5 +1,6 @@
 from color import Color
 from territory import Territory
+from card import Deck
 
 class Player:
 
