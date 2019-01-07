@@ -30,6 +30,7 @@ class Territories(str, Enum):
     EAF = "East Africa"
     CAF = "Central Africa"
     SA = "South Africa"
+    MA = "Madagascar"
 
     IN = "Indonesia"
     NG = "New Guinea"
